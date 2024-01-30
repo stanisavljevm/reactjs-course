@@ -22,24 +22,30 @@ function Counter() {
 		setCount((curCount) => curCount + step);
 	}
 
-	function decreaseStep() {
-		setStep((curStep) => curStep - 1);
-	}
-
-	function increaseStep() {
-		setStep((curStep) => curStep + 1);
+	function handleReset() {
+		setStep(1);
+		setCount(0);
 	}
 
 	return (
 		<>
 			<div>
-				<button onClick={decreaseStep}> - </button>
-				<span>Step: {step}</span>
-				<button onClick={increaseStep}> + </button>
+				<input
+					type="range"
+					min="1"
+					max="10"
+					value={step}
+					onChange={(e) => setStep(+e.target.value)}
+				/>
+				<span>{step}</span>
 			</div>
 			<div>
-				<button onClick={decreaseCount}>-</button>
-				<span>Count: {count}</span>
+				<button onClick={decreaseCount}> - </button>
+				<input
+					type="text"
+					value={count}
+					onChange={(e) => setCount(+e.target.value)}
+				/>
 				<button onClick={increaseCount}> + </button>
 			</div>
 			<p>
@@ -52,6 +58,11 @@ function Counter() {
 				</span>
 				<span>{date.toDateString()}</span>
 			</p>
+			{(count !== 0 || step !== 1) && (
+				<div>
+					<button onClick={handleReset}>Reset</button>
+				</div>
+			)}
 		</>
 	);
 }
