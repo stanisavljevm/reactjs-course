@@ -1,6 +1,8 @@
+import { useState } from "react";
 import AccordionItem from "./AccordionItem";
 
 export default function Accordion({ data }) {
+	const [curOpen, setIsOpen] = useState(null);
 	return (
 		<div className="accordion">
 			{data.map((faq, i) => (
@@ -8,8 +10,11 @@ export default function Accordion({ data }) {
 					key={faq.title}
 					num={i}
 					title={faq.title}
-					text={faq.text}
-				/>
+					curOpen={curOpen}
+					onOpen={setIsOpen}
+				>
+					{faq.text}
+				</AccordionItem>
 			))}
 		</div>
 	);
